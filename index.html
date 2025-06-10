@@ -3,9 +3,569 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS If Function</title>
+    <title>ACTUAL CSS IF() Examples - Correct Syntax</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            border-radius: 10px;
+            color: white;
+        }
+
+        .example {
+            margin-bottom: 50px;
+            padding: 25px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: #fafafa;
+        }
+
+        .example h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            background: white;
+        }
+
+
+
+
+
+
+
+
+
+
+        
+
+        /* ===== EXAMPLE 1: CSS IF() PRICE COLOR ===== */
+        @function --price-color() {
+            result: if(
+                style(--product-state: sale): #e11d48;
+                style(--product-state: clearance): #dc2626;
+                style(--product-state: premium): #059669;
+                else: #374151
+            );
+        }
+
+        @function --price-decoration() {
+            result: if(
+                style(--product-state: sale): line-through;
+                style(--product-state: clearance): line-through;
+                else: none
+            );
+        }
+
+        @function --badge-text() {
+            result: if(
+                style(--product-state: sale): "🏷️ SALE";
+                style(--product-state: clearance): "🔥 CLEARANCE";
+                style(--product-state: premium): "⭐ PREMIUM";
+                else: ""
+            );
+        }
+
+        .product {
+            --product-state: regular;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .original-price {
+            color: --price-color();
+            text-decoration: --price-decoration();
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .product-badge::before {
+            content: --badge-text();
+            font-weight: bold;
+        }
+
+        /* ===== EXAMPLE 2: CSS IF() BACKGROUND COLOR ===== */
+        @function --theme-bg() {
+            result: if(
+                style(--theme-mode: dark): #1f2937;
+                style(--theme-mode: blue): #1e40af;
+                style(--theme-mode: green): #166534;
+                else: #ffffff
+            );
+        }
+
+        @function --theme-text() {
+            result: if(
+                style(--theme-mode: dark): #f9fafb;
+                style(--theme-mode: blue): #ffffff;
+                style(--theme-mode: green): #ffffff;
+                else: #1f2937
+            );
+        }
+
+        @function --theme-border() {
+            result: if(
+                style(--theme-mode: dark): dashed;
+                style(--theme-mode: blue): dotted;
+                style(--theme-mode: green): double;
+                else: solid
+            );
+        }
+
+        .themed-card {
+            --theme-mode: light;
+            background: --theme-bg();
+            color: --theme-text();
+            border: 3px --theme-border() currentColor;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== EXAMPLE 3: CSS IF() NOTIFICATION SYSTEM ===== */
+        @function --notification-bg() {
+            result: if(
+                style(--alert-type: error): #fecaca;
+                style(--alert-type: warning): #fef3c7;
+                style(--alert-type: success): #d1fae5;
+                style(--alert-type: info): #dbeafe;
+                else: #f3f4f6
+            );
+        }
+
+        @function --notification-border() {
+            result: if(
+                style(--alert-type: error): #f87171;
+                style(--alert-type: warning): #fbbf24;
+                style(--alert-type: success): #34d399;
+                style(--alert-type: info): #60a5fa;
+                else: #d1d5db
+            );
+        }
+
+        @function --notification-text() {
+            result: if(
+                style(--alert-type: error): #991b1b;
+                style(--alert-type: warning): #92400e;
+                style(--alert-type: success): #065f46;
+                style(--alert-type: info): #1e40af;
+                else: #374151
+            );
+        }
+
+        @function --notification-icon() {
+            result: if(
+                style(--alert-type: error): "❌";
+                style(--alert-type: warning): "⚠️";
+                style(--alert-type: success): "✅";
+                style(--alert-type: info): "ℹ️";
+                else: "📄"
+            );
+        }
+
+        @function --notification-priority() {
+            result: if(
+                style(--alert-type: error): "3px solid red";
+                style(--alert-type: warning): "2px dashed orange";
+                style(--alert-type: success): "2px solid green";
+                else: "1px solid gray"
+            );
+        }
+
+        .notification {
+            --alert-type: info;
+            background: --notification-bg();
+            border: 2px solid --notification-border();
+            border-left: --notification-priority();
+            color: --notification-text();
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .notification-icon::before {
+            content: --notification-icon();
+            font-size: 1.2rem;
+        }
+
+        .notification-content {
+            flex-grow: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .notification-message {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        body {
+            background: if(media(prefers-color-scheme: dark): #000; else: red; );
+        }
+
+        .block {
+            background-color: if(media(prefers-color-scheme: dark): #333; else: hotpink);
+            block-size: if(media(width < 500px): 50vh; else: 20rem) ; 
+            color: if(media(prefers-color-scheme: dark): #ffffff; else: #000000);
+            display: grid;
+            inline-size: if(media(width >= 48rem): 20rem; else: 40rem) : font-size: if(media(width >= 48rem): 1.5rem; else: 3rem);
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+
+
+        <div class="block">
+            sdfsdfds
+        </div>
+
+
+        <div class="header">
+            <h1>ACTUAL CSS IF() Examples</h1>
+            <p>Real-World Business Use Cases</p>
+        </div>
+
+        <!-- EXAMPLE 1 -->
+        <div class="example">
+            <h2>1. CSS IF() Price Colors</h2>
+            <pre><code>@function --price-color() {
+    result: if(
+        style(--product-state: sale): #e11d48;
+        style(--product-state: clearance): #dc2626;
+        style(--product-state: premium): #059669;
+        else: #374151
+    );
+}</code></pre>
+
+            <div class="controls">
+                <button class="btn" onclick="document.querySelector('.product').style.setProperty('--product-state', 'regular')">Regular</button>
+                <button class="btn" onclick="document.querySelector('.product').style.setProperty('--product-state', 'sale')">Sale</button>
+                <button class="btn" onclick="document.querySelector('.product').style.setProperty('--product-state', 'premium')">Premium</button>
+                <button class="btn" onclick="document.querySelector('.product').style.setProperty('--product-state', 'clearance')">Clearance</button>
+            </div>
+
+            <div class="product">
+                <div class="product-title">Sample Product</div>
+                <div class="original-price">$299.99</div>
+                <div class="product-badge"></div>
+            </div>
+        </div>
+
+        <!-- EXAMPLE 2 -->
+        <div class="example">
+            <h2>2. CSS IF() Theme Colors</h2>
+            <pre><code>@function --theme-bg() {
+    result: if(
+        style(--theme-mode: dark): #1f2937;
+        style(--theme-mode: blue): #1e40af;
+        style(--theme-mode: green): #166534;
+        else: #ffffff
+    );
+}</code></pre>
+
+            <div class="controls">
+                <button class="btn" onclick="document.querySelector('.themed-card').style.setProperty('--theme-mode', 'light')">Light</button>
+                <button class="btn" onclick="document.querySelector('.themed-card').style.setProperty('--theme-mode', 'dark')">Dark</button>
+                <button class="btn" onclick="document.querySelector('.themed-card').style.setProperty('--theme-mode', 'blue')">Blue</button>
+                <button class="btn" onclick="document.querySelector('.themed-card').style.setProperty('--theme-mode', 'green')">Green</button>
+            </div>
+
+            <div class="themed-card">
+                <h3>Theme-Aware Content</h3>
+                <p>Background, text color, and border style all change via CSS IF() functions.</p>
+            </div>
+        </div>
+
+        <!-- EXAMPLE 3 -->
+        <div class="example">
+            <h2>3. CSS IF() Notification System</h2>
+            <pre><code>@function --notification-bg() {
+    result: if(
+        style(--alert-type: error): #fecaca;
+        style(--alert-type: warning): #fef3c7;
+        style(--alert-type: success): #d1fae5;
+        style(--alert-type: info): #dbeafe;
+        else: #f3f4f6
+    );
+}</code></pre>
+
+            <div class="controls">
+                <button class="btn" onclick="document.querySelector('.notification').style.setProperty('--alert-type', 'info')">Info</button>
+                <button class="btn" onclick="document.querySelector('.notification').style.setProperty('--alert-type', 'success')">Success</button>
+                <button class="btn" onclick="document.querySelector('.notification').style.setProperty('--alert-type', 'warning')">Warning</button>
+                <button class="btn" onclick="document.querySelector('.notification').style.setProperty('--alert-type', 'error')">Error</button>
+            </div>
+
+            <div class="notification">
+                <div class="notification-icon"></div>
+                <div class="notification-content">
+                    <div class="notification-title">System Notification</div>
+                    <div class="notification-message">This notification changes its entire appearance (colors, icons, borders) based purely on CSS IF() functions responding to the --alert-type custom property.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<div id="feh-css-if-1">
+<style>
+/* ===== REALISTIC PRODUCT PRICING EXAMPLE ===== */
+        @function --sale-price() {
+            result: if(
+                style(--product-state: sale): attr(data-sale-price);
+                style(--product-state: clearance): attr(data-clearance-price);
+                else: ""
+            );
+        }
+        @function --original-display() {
+            result: if(
+                style(--product-state: sale): block;
+                style(--product-state: clearance): block;
+                else: none
+            );
+        }
+        @function --current-price-size() {
+            result: if(
+                style(--product-state: sale): 1.8rem;
+                style(--product-state: clearance): 1.8rem;
+                style(--product-state: premium): 1.8rem;
+                else: 1.5rem
+            );
+        }
+        @function --current-price-color() {
+            result: if(
+                style(--product-state: sale): #e11d48;
+                style(--product-state: clearance): #dc2626;
+                style(--product-state: premium): #059669;
+                else: #374151
+            );
+        }
+        @function --badge-text() {
+            result: if(
+                style(--product-state: sale): "🏷️ SAVE " attr(data-savings);
+                style(--product-state: clearance): "🔥 FINAL SALE";
+                style(--product-state: premium): "⭐ PREMIUM";
+                else: ""
+            );
+        }
+        
+        .controls { 
+            display: flex; 
+            align-items: center; 
+            padding: 12px; 
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .controls .btn { 
+            background: #e9ecef; 
+            margin-right: 8px; 
+            padding: 8px 16px; 
+            font-size: 14px; 
+            cursor: pointer; 
+            border: none; 
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        .btn.active {
+             background: #007bff;
+             color: white;
+        }
+        .btn:hover:not(.active) {
+            background: #dee2e6;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .product {
+            --product-state: regular;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #212529;
+        }
+        
+        .product-description {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .pricing {
+            margin: 15px 0;
+        }
+        
+        .current-price {
+            color: --current-price-color();
+            font-size: --current-price-size();
+            font-weight: bold;
+        }
+        
+        .current-price::before {
+            content: --sale-price();
+        }
+        
+        .original-price {
+            display: --original-display();
+            color: #6c757d;
+            text-decoration: line-through;
+            font-size: 1.1rem;
+            margin-left: 10px;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #ffc107;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #000;
+        }
+        .product-badge::before {
+            content: --badge-text();
+        }     
+</style>
+
+<div class="controls">
+    <span style="margin-right: 12px; font-weight: 600;">View:</span>
+    <button class="btn active" onclick="setAllProductsState('regular')">Regular Price</button>
+    <button class="btn" onclick="setAllProductsState('sale')">Sale Items</button>
+    <button class="btn" onclick="setAllProductsState('premium')">Premium</button>
+    <button class="btn" onclick="setAllProductsState('clearance')">Clearance</button>
+</div>
+
+<div class="products-grid">
+    <div class="product" data-sale-price="$199.99" data-clearance-price="$149.99" data-savings="$100">
+        <div class="product-title">Wireless Noise-Canceling Headphones</div>
+        <div class="product-description">Premium audio with 30-hour battery life</div>
+        <div class="pricing">
+            <span class="current-price">$299.99</span>
+            <span class="original-price">$299.99</span>
+        </div>
+        <div class="product-badge"></div>
+    </div>
     
+    <div class="product" data-sale-price="$299.99" data-clearance-price="$249.99" data-savings="$100">
+        <div class="product-title">Smart Fitness Watch</div>
+        <div class="product-description">Health tracking with GPS and heart rate monitor</div>
+        <div class="pricing">
+            <span class="current-price">$399.99</span>
+            <span class="original-price">$399.99</span>
+        </div>
+        <div class="product-badge"></div>
+    </div>
+    
+    <div class="product" data-sale-price="$99.99" data-clearance-price="$79.99" data-savings="$50">
+        <div class="product-title">Portable Bluetooth Speaker</div>
+        <div class="product-description">Waterproof design with 360° sound</div>
+        <div class="pricing">
+            <span class="current-price">$149.99</span>
+            <span class="original-price">$149.99</span>
+        </div>
+        <div class="product-badge"></div>
+    </div>
+</div>
+
+<script>
+function setAllProductsState(state) {
+    // Remove active class from all buttons
+    document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
+    
+    // Add active class to clicked button
+    event.target.classList.add('active');
+    
+    // Apply state to all products
+    document.querySelectorAll('.product').forEach(product => {
+        product.style.setProperty('--product-state', state);
+    });
+}
+</script>
+
+</div>
+
 </body>
 </html>
